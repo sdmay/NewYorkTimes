@@ -33,7 +33,7 @@ var Results = React.createClass({
 	render: function(){
 		return(
 
-			<div className="panel panel-warning">
+			<div className="panel">
 				<div className="panel-heading">
 					<h3 className="panel-title text-center"><strong>Results</strong></h3>
 				</div>

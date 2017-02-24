@@ -43,19 +43,19 @@ var Form = React.createClass({
 
 						<form>
 							<div className="form-group">
-								<h4 className=""><strong>Topic</strong></h4>
+								<h4 className="">Topic</h4>
 								<input type="text" className="form-control text-center" id="topic" onChange= {this.handleChange} required/>
 								<br />
 
-								<h4 className=""><strong>Start Year</strong></h4>
+								<h4 className="">Start Year</h4>
 								<input type="text" className="form-control text-center" id="startYear" onChange= {this.handleChange} required/>
 								<br />
 
-								<h4 className=""><strong>End Year</strong></h4>
+								<h4 className="">End Year</h4>
 								<input type="text" className="form-control text-center" id="endYear" onChange= {this.handleChange} required/>
 								<br />
 								
-								<button type="button" className="btn btn-primary" onClick={this.handleClick}>Search</button>
+								<button type="button" className="btn btn-danger btn-lg" onClick={this.handleClick} bsSize="large" block>Search</button>
 							</div>
 
 						</form>
