@@ -99,7 +99,7 @@ var Main = React.createClass({
 				<div className="row">
 
 					<div className="jumbotron" >
-                    <h1 className="text-center">Search The New York Times</h1>
+                    <h1 className="panel-title text-center">Search The New York Times</h1>
 							</div>
 				</div>
 				<div className="row">
