@@ -1,12 +1,12 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
-var mongoose = require('mongoose');
+let express = require('express');
+let bodyParser = require('body-parser');
+let logger = require('morgan');
+let mongoose = require('mongoose');
 
-var Article = require('./models/Article.js');
+let Article = require('./models/Article.js');
 
-var app = express();
-var PORT = process.env.PORT || 3000;
+let app = express();
+const PORT = process.env.PORT || 3000;
 
 // Run Morgan for Logging
 app.use(logger('dev'));
@@ -21,24 +21,24 @@ app.use(express.static('./public'));
 mongoose.connect("mongodb://heroku_q343w7gr:mcm1vui9g2kva2oohbvag3sfrp@ds153179.mlab.com:53179/heroku_q343w7gr");
 
 
-var db = mongoose.connection;
+let db = mongoose.connection;
 
-db.on('error', function (err) {
+db.on('error',  (err) => {
   console.log('Mongoose Error: ', err);
 });
 
-db.once('open', function () {
+db.once('open',  () => {
   console.log('Mongoose connection successful.');
 });
 
-app.get('/', function(req, res){
+app.get('/', (req, res) => {
   res.sendFile('./public/index.html');
 })
 
-app.get('/api/saved', function(req, res) {
+app.get('/api/saved', (req, res) => {
 
   Article.find({})
-    .exec(function(err, doc){
+    .exec((err, doc) =>{ 
 
       if(err){
         console.log(err);
@@ -49,15 +49,15 @@ app.get('/api/saved', function(req, res) {
     })
 });
 
-app.post('/api/saved', function(req, res){
+app.post('/api/saved', (req, res) =>{
 
-  var newArticle = new Article({
+  let newArticle = new Article({
     title: req.body.title,
     date: req.body.date,
     url: req.body.url
   });
 
-  newArticle.save(function(err, doc){
+  newArticle.save((err, doc) => {
     if(err){
       console.log(err);
       res.send(err);
@@ -68,17 +68,15 @@ app.post('/api/saved', function(req, res){
 
 });
 
-app.delete('/api/saved/:id', function(req, res){
+app.delete('/api/saved/:id', (req, res) => {
 
   Article.find({'_id': req.params.id}).remove()
-    .exec(function(err, doc) {
+    .exec((err, doc) => {
       res.send(doc);
   });
 
 });
 
-
-
-app.listen(PORT, function() {
+app.listen(PORT, () => {
   console.log("App listening on PORT: " + PORT);
 });

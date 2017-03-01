@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+// import mongoose from "mongoose";
+let Schema = mongoose.Schema;
 
 
-var ArticleSchema = new Schema({
+let ArticleSchema = new Schema({
   title: {
     type: String,
     trim: true,
@@ -22,7 +23,7 @@ var ArticleSchema = new Schema({
 });
 
 // Create the Model
-var Article = mongoose.model('Article', ArticleSchema);
+let Article = mongoose.model('Article', ArticleSchema);
 
 // Export it for use elsewhere
 module.exports = Article;

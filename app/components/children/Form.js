@@ -1,40 +1,42 @@
-var React = require('react');
+import React from "react";
 
 // Component creation
-var Form = React.createClass({
-
-	// Here we set a generic state associated with the text being searched for
-	getInitialState: function(){
-		return {
+export class Form extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			topic: "",
 			startYear: "",
 			endYear: ""
-		}
-	},
+		};
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+
+	}
 
 	// This function will respond to the user input 
-	handleChange: function(event){
+	handleChange(event) {
 
-    	// Here we create syntax to capture any change in text to the query terms (pre-search).
-    	var newState = {};
-    	newState[event.target.id] = event.target.value;
-    	this.setState(newState);
+		// Here we create syntax to capture any change in text to the query terms (pre-search).
+		let newState = {};
+		newState[event.target.id] = event.target.value;
+		this.setState(newState);
 
-	},
+	}
 
 	// When a user submits... 
-	handleClick: function(){
-	
+	handleClick() {
+
 		// Set the parent to have the search term
 		this.props.setTerm(this.state.topic, this.state.startYear, this.state.endYear);
 
 
-	},
+	}
 
 	// Here we render the function
-	render: function(){
+	render() {
 
-		return(
+		return (
 
 			<div className="panel panel-info">
 				<div className="panel-heading">
@@ -42,29 +44,26 @@ var Form = React.createClass({
 				</div>
 				<div className="panel-body text-center">
 
-						<form>
-							<div className="form-group">
-								<h4 className="">Topic</h4>
-								<input type="text" className="form-control text-center" id="topic" onChange= {this.handleChange} required/>
-								<br />
+					<form>
+						<div className="form-group">
+							<h4 className="">Topic</h4>
+							<input type="text" className="form-control text-center" id="topic" onChange={this.handleChange} required />
+							<br />
 
-								<h4 className="">Start Year</h4>
-								<input type="text" className="form-control text-center" id="startYear" onChange= {this.handleChange} required/>
-								<br />
+							<h4 className="">Start Year</h4>
+							<input type="text" className="form-control text-center" id="startYear" onChange={this.handleChange} required />
+							<br />
 
-								<h4 className="">End Year</h4>
-								<input type="text" className="form-control text-center" id="endYear" onChange= {this.handleChange} required/>
-								<br />
-								
-								<button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} bsSize="large" block>Search</button>
-							</div>
+							<h4 className="">End Year</h4>
+							<input type="text" className="form-control text-center" id="endYear" onChange={this.handleChange} required />
+							<br />
 
-						</form>
+							<button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} bsSize="large" block>Search</button>
+						</div>
+
+					</form>
 				</div>
 			</div>
 		)
 	}
-});
-
-// Export the component back for use in other files
-module.exports = Form;
+}

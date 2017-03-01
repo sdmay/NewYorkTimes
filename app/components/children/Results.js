@@ -1,36 +1,38 @@
-var React = require('react');
-var helpers = require('../utils/helpers.js');
+import React from 'react';
+import helpers from "../utils/helpers.js";
+// let helpers = require('../utils/helpers.js');
 // Component creation
-var Results = React.createClass({
+export  class Results extends React.Component{
 
-	getInitialState: function(){
-		return {
+constructor(props) {
+	   super(props);
+		this.state ={
 			title: "",
 			date: "",
 			url: "",
 			results: []
 		}
-	},
-
+				this.clickToSave = this.clickToSave.bind(this);
+		}
 	// When a user clicks save article
-	clickToSave: function(result){
+	clickToSave(result){
 
 		this.props.saveArticle(result.headline.main, result.pub_date, result.web_url);
 
-	},
+	}
 
-	componentWillReceiveProps: function(nextProps){
-		var that = this;
-		var myResults = nextProps.results.map(function(search, i){
-			var boundClick = that.clickToSave.bind(that, search);
+	componentWillReceiveProps(nextProps){
+		let that = this;
+		let myResults = nextProps.results.map(function(search, i){
+			let boundClick = that.clickToSave.bind(that, search);
 			return <div className="list-group-item" key={i}><h4><a href={search.web_url} target="_blank">{search.headline.main}</a></h4><br />{search.pub_date}<br /><button type="button" className="btn btn-success" style={{'float': 'right', 'marginTop': '-39px'}} onClick={boundClick}>Save</button></div>
 		});
 
 		this.setState({results: myResults});
-	},
+	}
 	
 	// Here we render the function
-	render: function(){
+	render(){
 		return(
 
 			<div className="panel panel-info">
@@ -44,7 +46,4 @@ var Results = React.createClass({
 
 		)
 	}
-});
-
-// Export the component back for use in other files
-module.exports = Results;
+}

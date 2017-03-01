@@ -1,25 +1,25 @@
-var axios = require('axios');
-
+// let axios = require('axios');
+import axios from "axios";
 // New York Times API
-var nytAPI = "097be422255e45a18b6864a8176f4a6c";
+let nytAPI = "097be422255e45a18b6864a8176f4a6c";
 
 // Helper Functions
-var helpers = {
+const helpers = {
 
 	runQuery: function(topic, startYear, endYear){
 
 		//Figure out the geolocation
-		var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + nytAPI + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
+		let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + nytAPI + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
 
 		return axios.get(queryURL)
 			.then(function(response){
 
-				var newResults = [];
-				var fullResults = response.data.response.docs;
-				var counter = 0;
+				let newResults = [];
+				let fullResults = response.data.response.docs;
+				let counter = 0;
 
 				//Gets first 5 articles that have all 3 components
-				for(var i = 0; i < fullResults.length; i++){
+				for(let i = 0; i < fullResults.length; i++){
 
 					if(counter > 4) {
 						return newResults;

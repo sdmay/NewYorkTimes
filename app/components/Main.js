@@ -1,46 +1,49 @@
-var axios = require('axios');
+import axios from "axios";
 
 // Include React 
-var React = require('react');
+import React from 'react';
 
 // Here we include all of the sub-components
-var Form = require('./children/Form');
-var Results = require('./children/Results');
-var Saved = require('./children/Saved');
+import Form from "./children/Form";
+// let Form = require('');
+
+import Results from "./children/Results";
+import Saved from "./children/Saved";
+
 
 // Helper Function
-var helpers = require('./utils/helpers.js');
-
+// let helpers = require('./utils/helpers.js');
+import helpers from "./utils/helpers.js";
 
 // This is the main component. 
-var Main = React.createClass({
+// let Main = React.createClass({
+export default class Main extends React.Component{
 
-	// Here we set a generic state associated with the number of clicks
-	getInitialState: function(){
-		return {
+constructor(props) {
+    super(props);
+    this.state = {
 			topic: "",
 			startYear: "",
 			endYear: "",
 			results: [],
 			savedArticles: []
-		}
-	},	
-
-	// We use this function to allow children to update the parent with searchTerms.
-	setTerm: function(tpc, stYr, endYr){
+		};
+    this.setTerm = this.setTerm.bind(this)
+  }
+		setTerm(tpc, stYr, endYr){
 		this.setState({
 			topic: tpc,
 			startYear: stYr,
 			endYear: endYr
 		})
-	},
+	}
 
-	saveArticle: function(title, date, url){
+	saveArticle(title, date, url){
 		helpers.postArticle(title, date, url);
 		this.getArticle();
-	},
+	}
 
-	deleteArticle: function(article){
+	deleteArticle(article){
 		console.log(article);
 		axios.delete('/api/saved/' + article._id)
 			.then(function(response){
@@ -51,19 +54,18 @@ var Main = React.createClass({
 			}.bind(this));
 
 		this.getArticle();
-	},
+	}
 
-	getArticle: function(){
+	getArticle(){
 		axios.get('/api/saved')
 			.then(function(response){
 				this.setState({
 					savedArticles: response.data
 				});
 			}.bind(this));
-	},
+	}
 
-	// If the component updates we'll run this code
-	componentDidUpdate: function(prevProps, prevState){
+	componentDidUpdate(prevProps, prevState){
 
 		if(prevState.topic != this.state.topic){
 			console.log("UPDATED");
@@ -79,19 +81,18 @@ var Main = React.createClass({
 					}
 				}.bind(this))
 		}
-	},
+	}
 
-	componentDidMount: function(){
+	componentDidMount(){
 		axios.get('/api/saved')
 			.then(function(response){
 				this.setState({
 					savedArticles: response.data
 				});
 			}.bind(this));
-	},
+	}
 
-	// Here we render the function
-	render: function(){
+	render(){
 		return(
 
 			<div className="container">
@@ -100,6 +101,7 @@ var Main = React.createClass({
 
 					<div className="jumbotron" >
                     <h1 className="panel-title text-center">Search The New York Times</h1>
+                    <h3>Find articles during a specified time frame</h3>
 							</div>
 				</div>
 				<div className="row">
@@ -122,6 +124,4 @@ var Main = React.createClass({
 			</div>
 		)
 	}
-});
-
-module.exports = Main;
+}
